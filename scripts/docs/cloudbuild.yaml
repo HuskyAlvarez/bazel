@@ -4,10 +4,10 @@ steps:
 - name: gcr.io/$PROJECT_ID/bazel-jekyll
   args: ['build', '//site']
 - name: gcr.io/cloud-builders/gsutil
-  args: ['-m', 'rsync', '-r', '-c', '-d', '/workspace/bazel-bin/site/site-build', 'gs://docs.bazel.build']
+  args: ['-m', 'rsync', '-r', '-c', '-d', '/workspace/bazel-bin/site/site-build', 'gs://test-bazel']
 - name: gcr.io/cloud-builders/gsutil
-  args: ['web', 'set', '-m', 'index.html', '-e', '404.html', 'gs://docs.bazel.build']
+  args: ['web', 'set', '-m', 'index.html', '-e', '404.html', 'gs://test-bazel']
 - name: gcr.io/cloud-builders/gsutil
-  args: ['-m', 'acl', 'ch', '-R', '-u', 'AllUsers:R', 'gs://docs.bazel.build']
+  args: ['-m', 'acl', 'ch', '-R', '-u', 'AllUsers:R', 'gs://test-bazel']
 
 timeout: 3600s
